@@ -76,7 +76,7 @@ class Questao06 {
 	   boolean conti = true;
 	   int count = 0;
 
-	   for(int i = 0; i < str.length()-1 && conti && count < 2; i++){
+	   for(int i = 0; i < str.length() && conti && count < 2; i++){
 		 if(str.charAt(i)==',' || str.charAt(i)=='.'){
 				 count++;
 			}

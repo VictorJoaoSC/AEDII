@@ -9,7 +9,7 @@ class Questao03 {
       String[] entrada = new String[1000];
       String linha;
       int numEntrada = 0;
-
+	  gerador.setSeed(4);
       //Leitura da entrada padrao
       do {
          entrada[numEntrada] = MyIO.readLine();
@@ -26,7 +26,7 @@ class Questao03 {
    	char paraSubstituir = RandomChar();
 	char  substituir = RandomChar();
 	String novaStr = "";
-	gerador.setSeed(4);
+	
 
 	for(int i = 0 ; i < str.length(); i++){
 		if(str.charAt(i) == paraSubstituir)
