@@ -61,8 +61,66 @@ class Questao8 {
 			case 'á':
 				MyIO.println(l);
 				dados[5]++;
-			break;		
+			break;
+			case 'í':
+				dados[0]++;
+			break;
+			case 'é':
+				dados[1]++;
+			break;
+			case 'ó':
+				dados[2]++;
+			break;
+			case 'ú':
+				dados[3]++;
+			break;
+			case 'à':
+				dados[4]++;
+			break;
+			case 'è':
+				MyIO.println(l);
+				dados[5]++;
+			break;
+			case 'ì':
+				dados[0]++;
+			break;
+			case 'ò':
+				dados[1]++;
+			break;
+			case 'ã':
+				dados[2]++;
+			break;
+			case 'õ':
+				dados[3]++;
+			break;
+			case 'â':
+				dados[4]++;
+			break;
+			case 'ê':
+				MyIO.println(l);
+				dados[5]++;
+			break;
+			case 'î':
+				dados[0]++;
+			break;
+			case 'ô':
+				dados[1]++;
+			break;
+			case 'ô	':
+				dados[2]++;
+			break;
+			case 'o':
+				dados[3]++;
+			break;
+			case 'u':
+				dados[4]++;
+			break;
+			case 'á':
+				MyIO.println(l);
+				dados[5]++;
+			break;					
 		}
+
 
 	   return dados;
 	}
