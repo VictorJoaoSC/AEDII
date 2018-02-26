@@ -17,28 +17,79 @@ class Questao8 {
       for(int i = 0; i < numEntrada -1; i+=2){
          String nomeSite  = entrada[i];
 		 String endereco = entrada[i+1];
-		 System.out.println(nomeSite + " : "+endereco);
+		 
 		
 		String html = getHtml(endereco);
 		
-		String teste[] = InfoDados(html);
+		int[] dadosSites = InfoDados(html);
 
-    	 
-      }
+		MyIO.println("a("+dadosSites[0]+") e("+dadosSites[1]+") i("+dadosSites[2]+") o("+dadosSites[3]+") u("+dadosSites[4]+") á("+dadosSites[5]+") é("+dadosSites[6]+") í("+dadosSites[7]+") ó("+dadosSites[8]+") ú("+dadosSites[9]+") à("+dadosSites[10]+") è("+dadosSites[11]+") ì("+dadosSites[12]+") ò("+dadosSites[13]+") ù("+dadosSites[14]+") ã("+dadosSites[15]+") õ("+dadosSites[16]+") â("+dadosSites[17]+") ê("+dadosSites[18]+") î("+dadosSites[19]+") ô("+dadosSites[20]+") û("+dadosSites[21]+") consoante("+dadosSites[22]+") <br>("+dadosSites[23]+") <table>("+dadosSites[24]+") "+nomeSite); 
+
+	  }
    }
 
-	public static String[] InfoDados(String html){
+	public static int[] InfoDados(String html){
 		
-		int[] dadosSites = new int[6];		
+		int[] dadosSites = new int[25];		
 		
+
 		for(int i =0 ; i < html.length(); i++){
-				dadosSites=countDados(html.charAt(i),dadosSites);
+				if(html.charAt(i)=='<'){
+					int resp =Infotags(html,i);
+						if(resp == 0){
+							dadosSites[23]++;
+							i+=3;
+						}	
+						else
+							if(resp == 1){
+								dadosSites[24]++;
+								i+=6;
+							}
+				}
+					dadosSites=countDados(html.charAt(i),dadosSites);
 		}
 		
-		MyIO.println(dadosSites[5]);
-		
-		return null;
+		return dadosSites;
 	}
+
+	private static int Infotags(String html,int pos){
+
+		String padrao1 = "<br>";
+		String padrao2 = "<table>";
+		
+		int savePos = pos;
+
+		int resp = 0;
+
+		boolean conti =true;
+
+		for(int i = 0; i < 4 && conti; i++){
+			if(html.charAt(pos)!= padrao1.charAt(i))
+				conti = false;
+			pos++;
+		}
+
+		if(!conti){
+			conti = true;
+			pos = savePos;
+
+			for(int i = 0; i < 7 && conti; i++){
+				if(html.charAt(pos)!= padrao2.charAt(i))
+				   conti = false;
+			    pos++;
+			}
+
+			if(conti)
+				resp = 1;
+			else
+				resp = -1;
+		}
+		
+		return resp;
+
+	}
+
+
 
 	public static int[] countDados(char l,int[] dados){
 		
@@ -59,69 +110,63 @@ class Questao8 {
 				dados[4]++;
 			break;
 			case 'á':
-				MyIO.println(l);
 				dados[5]++;
-			break;
-			case 'í':
-				dados[0]++;
 			break;
 			case 'é':
-				dados[1]++;
+				dados[6]++;
+			break;
+			case 'í':
+				dados[7]++;
 			break;
 			case 'ó':
-				dados[2]++;
+				dados[8]++;
 			break;
 			case 'ú':
-				dados[3]++;
+				dados[9]++;
 			break;
 			case 'à':
-				dados[4]++;
+				dados[10]++;
 			break;
 			case 'è':
-				MyIO.println(l);
-				dados[5]++;
+				dados[11]++;
 			break;
 			case 'ì':
-				dados[0]++;
+				dados[12]++;
 			break;
 			case 'ò':
-				dados[1]++;
+				dados[13]++;
 			break;
+			case 'ù':
+				dados[14]++;
+				break;
 			case 'ã':
-				dados[2]++;
+				dados[15]++;
 			break;
 			case 'õ':
-				dados[3]++;
+				dados[16]++;
 			break;
 			case 'â':
-				dados[4]++;
+				dados[17]++;
 			break;
 			case 'ê':
-				MyIO.println(l);
-				dados[5]++;
+				dados[18]++;
 			break;
 			case 'î':
-				dados[0]++;
+				dados[19]++;
 			break;
 			case 'ô':
-				dados[1]++;
+				dados[20]++;
 			break;
-			case 'ô	':
-				dados[2]++;
+			case 'û':
+				dados[21]++;
 			break;
-			case 'o':
-				dados[3]++;
-			break;
-			case 'u':
-				dados[4]++;
-			break;
-			case 'á':
-				MyIO.println(l);
-				dados[5]++;
+			case '<':
+			default:
+				if(l >= 97 && l<=122){
+					dados[22]++;
+				}
 			break;					
 		}
-
-
 	   return dados;
 	}
 

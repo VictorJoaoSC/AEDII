@@ -10,6 +10,8 @@ class Questao03 {
       String linha;
       int numEntrada = 0;
 	  gerador.setSeed(4);
+
+      MyIO.setCharset("UTF-8");
       //Leitura da entrada padrao
       do {
          entrada[numEntrada] = MyIO.readLine();

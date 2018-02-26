@@ -1,26 +1,26 @@
 #include <stdio.h>
 #include <locale.h> 
-int toFinalizar(char str[],char str2[]){
+int toFinalizar(char str[]){
 	
 	int i = 0;
+
+	char str2[] = "FIM";
 
 	while(str[i] == str2[i] && str[i] != '\0' && str2[i] != '\0'){
 		i++;
 	}
 
 	if(str[i] == '\0' && str2[i] == '\0'){
-		return 1;
+		return 0;
 	}
 	else{
-		return 0;
+		return 1;
 	}
 
 }
 
 int tamanhoString(char str[]){
 	int tam = 0;
-
-
 
 	while(str[tam] !='\0'){
 		tam++;
@@ -38,17 +38,13 @@ int isPalindromo(char str[]){
 	
 	char invertido[1000];
 
-	for(i=tam;i>=0;i--){
-			invertido[j]=str[i];
-			j++;
-	}
-	i =0 ;
 	for(i; i< tam && palindromo;i++){
-		if(str[i]!=invertido[i])
+		if(str[i]!=str[tam-1-i]){
 			palindromo = 0;
+			
+		}
+			
 	}
-	  
-	
 
 	return palindromo;
 
@@ -60,16 +56,15 @@ int main(){
 	char str[1000];
 	
 	
-	scanf("%[^\n]s",str);
+	gets(str);
 	int numLinhas = 0;
-	
-	while(!toFinalizar(str,"FIM")){
-		setbuf(stdin, NULL);
-		isPalindromo(str)==1?printf("SIM\n"):printf("NAO\n");
-		scanf("%[^\n]s",str);
 
+	while(toFinalizar(str)){
+		isPalindromo(str)==1?printf("SIM\n"):printf("NAO\n");
+		gets(str);	
 	}
-	return 0;
+
+	return 1;
 
 }
 

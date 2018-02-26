@@ -5,6 +5,7 @@ class AleatoriaRecursiva {
     private static Random aleatorio = new Random();
 
    public static void main (String[] args){
+      aleatorio.setSeed(4);
       String[] entrada = new String[1000];
       String linha;
       int numEntrada = 0;
@@ -22,7 +23,6 @@ class AleatoriaRecursiva {
    }
 
    private static String AleatoriaRecursiva(String str){
-        aleatorio.setSeed(4);
         char escolhida = RandomChar();
         char substituir = RandomChar();
     
