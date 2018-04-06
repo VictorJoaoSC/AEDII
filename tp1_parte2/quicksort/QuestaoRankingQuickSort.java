@@ -1,7 +1,7 @@
 import java.io.*;
+import java.util.Arrays;
 
-
-class Time{
+class Time implements Comparable<Time>{
 
     String pais;
 
@@ -111,6 +111,16 @@ class Time{
     public void imprimirDadosTime(){
         MyIO.println(this.pais+" pg("+this.pontos+") j("+this.jogos+") v("+this.vitoria+") e("+this.empates+") d("+this.derrotas+") gp("+this.golsPro+") gc("+this.golsContra+") sg("+this.getSaldoGols()+") d("+getDoidao()+")");
     }
+
+    @Override
+	public int compareTo(Time time){
+		int result = 0;
+		if(this.golsPro == time.getGolsPro())
+			result = this.pais.compareToIgnoreCase(time.getPais());
+		
+		return result;
+				
+	}
 }
 
 class Ranking{
@@ -160,8 +170,12 @@ class QuestaoRankingQuickSort{
         lerCopas();
 
         // insertionSortP();
-        quickSortSort();
-
+        //quickSortSort();
+	
+	Arrays.sort(ranking.getLista(),0,ranking.getQtdElementosLista());
+	
+	quickSortSort();
+	
         ranking.imprimirElementosLista();
         
     }
@@ -173,7 +187,7 @@ class QuestaoRankingQuickSort{
         file = MyIO.readLine();
         
         while(file.equals("0")==false){
-            String dir = "/home/joaoSC/Downloads/copa/"+file+".html";
+            String dir = "/home/1049275/Downloads/copa/"+file+".html";
 
             // String dir = "/tmp/copa/"+file+".html";
                         
@@ -249,7 +263,6 @@ class QuestaoRankingQuickSort{
 		for(int i = 0; i < vetor.length && vetor[i]!=null;i++){
             
             if(vetor[i].contains("right")){
-				// partidas[pos].setTime1(filtro(vetor[i]));
                 time1 =  paisCorrespondentes( filtro(vetor[i]) );
                 posRight = true;
 			}
@@ -380,67 +393,27 @@ class QuestaoRankingQuickSort{
         int e = 0;
         int d = ranking.getQtdElementosLista() -1;
         Time[] lista = ranking.getLista();
-        quickSortSortP(e,d,lista);
-        // quickSortSort(e,d,lista);
+        quickSort(e,d,lista);
+	//quickSortP(e,d,lista); 
     }
 
-    private static void quickSortSort(int e, int d,Time[] lista){
+    private static void quickSort(int e, int d,Time[] lista){
         int i = e;
         int j = d;
 
         Time pivo = lista[(d + e)/2];
         while( i <=j ){
             while(lista[i].getGolsPro() < pivo.getGolsPro()){
-                // if( lista[i+1]!=null && lista[i].getGolsPro() == lista[i+1].getGolsPro())
-                //     if(lista[i].getPais().compareToIgnoreCase(lista[i+1].getPais()) > 0)
-                //         swap(i,i+1,lista);
                 i++;
                 
             }
-
-            if(lista[i].getGolsPro() == pivo.getGolsPro()){
-                if(lista[i].getPais().compareToIgnoreCase(pivo.getPais()) > 0){
-                    swap(i,(d+e)/2,lista);
-                    // pivo = lista[i];
-                }
-                    
-            }
-
-
             
-            while(lista[j].getGolsPro() > pivo.getGolsPro()){
-                // if( lista[j].getGolsPro() == lista[j-1].getGolsPro())
-                //     if(lista[j].getPais().compareToIgnoreCase(lista[j-1].getPais()) < 0)
-                //         swap(j-1,j,lista);
+	
+	while(lista[j].getGolsPro() > pivo.getGolsPro()){
                   j--;
              }
 
-            if(lista[j].getGolsPro() == pivo.getGolsPro()){
-                if(lista[j].getPais().compareToIgnoreCase(pivo.getPais()) < 0){
-                    swap((d+e)/2,j,lista);
-                    // pivo = lista[j];
-                }
                     
-            }
-
-
-        
-            // else{
-            //     if(lista[j].getDerrotas() == pivo.getDerrotas())
-            //     if(lista[j].getPais().compareToIgnoreCase(pivo.getPais()) > 0)
-            //         swap(j,(d+e)/2,lista);
-
-            // }
-            
-            // if(i == j){
-            //     if(lista[i].getGolsPro() == lista[j].getGolsPro()){
-            //     if(lista[i].getPais().compareToIgnoreCase(lista[j].getPais()) > 0){
-            //         swap(i,j,lista);
-            //     }
-            //     }
-            // }
-            
-
 
             if( i <= j ){
                 swap(i,j,lista);
@@ -450,57 +423,51 @@ class QuestaoRankingQuickSort{
                 
         }
         if(e < j)
-            quickSortSort(e,j,lista);
+            quickSort(e,j,lista);
         if(i < d)
-            quickSortSort(i,d,lista);
-        
+            quickSort(i,d,lista);
         
     }
 
-    private static void quickSortSortP(int e, int d,Time[] lista){
-        int i = e;
-        int j = d;
+    //private static void quickSortP(int e, int d,Time[] lista){
+	// int i = e;
+	// int j = d;
 
-        String pivo = lista[(d + e)/2].getPais();
-        while( i <=j ){
-            while(lista[i].getPais().compareToIgnoreCase(pivo) < 0){
-                i++;
-            }
-            while(lista[j].getPais().compareToIgnoreCase(pivo) > 0)
-                j--;
-            if( i <= j ){
-                swap(i,j,lista);
-                i++;
-                j--;
-            }
+        //Time pivo = lista[(d + e)/2];
+       // while( i <=j ){
+         //   while(lista[i].getGolsPro() == pivo.getGolsPro()){
+		
+	//	if(lista[i].getPais().compareToIgnoreCase(pivo.getPais()) == 0 )
+	//		swap(i,(d+e)/2,lista);
+          //      i++;
+           //}
+           // while(lista[j].getGolsPro() == pivo.getGolsPro()){
+	//		if(pivo.getPais().compareToIgnoreCase(lista[j].getPais()) == 0 )
+		//		swap((d+e)/2,j,lista);
+		
+	//	j--;
+	//	}
                 
-        }
-        if(e < j)
-            quickSortSortP(e,j,lista);
-        if(i < d)
-            quickSortSortP(i,d,lista);
-    }
+          // if( i <= j ){
+            //    swap(i,j,lista);
+              //  i++;
+               // j--;
+         // } 
+                
+       // }
+        //if(e < j)
+        //    quickSortP(e,j,lista);
+       // if(i < d)
+         //   quickSortP(i,d,lista);
+   // }
 
-    //  public static void insertionSortP(){
 
-    //     Time[] lista = ranking.getLista();
 
-    //     int n = ranking.getQtdElementosLista();
 
-    //     for(int i = 1; i < n; i++){
 
-    //         Time temp = lista[i];
-    //         int j = i -1;
             
-    //         while( (j>=0) && palavra( lista[j].getPais(), temp.getPais()) ){
-    //             lista[j+1] = lista[j];
-    //             j--;
-    //         }            
 
-    //         lista[j+1] = temp;
 
-    //     }
-    // }
 
 
     // private static boolean palavra(String str1, String str2){
