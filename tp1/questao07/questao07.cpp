@@ -1,28 +1,27 @@
 #include <stdio.h>
 #include <locale.h> 
 int toFinalizar(char str[]){
-	
-	int i = 0;
 
-	char str2[] = "FIM";
+	char para[]="FIM\n";
 
-	while(str[i] == str2[i] && str[i] != '\0' && str2[i] != '\0'){
+	int i =0;
+
+	int finalizar = 1;
+
+	while(str[i] == para[i] && str[i]!='\0' && para[i]!='\0'){
 		i++;
 	}
 
-	if(str[i] == '\0' && str2[i] == '\0'){
-		return 0;
-	}
-	else{
-		return 1;
-	}
+	if(str[i]==para[i] && str[i]=='\0' && para[i]=='\0')
+		finalizar = 0;
 
+	return finalizar;
 }
 
 int tamanhoString(char str[]){
 	int tam = 0;
 
-	while(str[tam] !='\0'){
+	while(str[tam] !='\n'){
 		tam++;
 	}
 	return tam;
@@ -53,15 +52,14 @@ int isPalindromo(char str[]){
 int main(){
 	
 	setlocale(LC_ALL,"");
-	char str[1000];
+	char str[400];
 	
 	
-	gets(str);
-	int numLinhas = 0;
+	fgets(str,400,stdin);
 
 	while(toFinalizar(str)){
 		isPalindromo(str)==1?printf("SIM\n"):printf("NAO\n");
-		gets(str);	
+		fgets(str,400,stdin);	
 	}
 
 	return 1;

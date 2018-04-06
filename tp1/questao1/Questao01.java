@@ -2,7 +2,6 @@ class Questao01 {
 
    public static void main (String[] args){
       String[] entrada = new String[1000];
-      String linha;
       int numEntrada = 0;
 
       //Leitura da entrada padrao

@@ -16,7 +16,7 @@ class Questao06 {
 	      MyIO.println(Infos(entrada[i]));
       }
    }
-
+   //METODO RESPONSAVEL POR CHAMAR OS METODOS DE VERIFICAÇÃO DE INFORMAÇÕES DA STRING E RETORNA OS RESULTADOS
    private static String Infos(String str){
    	
 	   str = ToLowerCase(str);
@@ -31,66 +31,86 @@ class Questao06 {
 	   return out;
    }
 
-
+	//ESSE METODO VERIFICA SE UMA STRING É COMPOSTO POR APENAS VOGAIS
    private static boolean IsVogal(String str){
    	   boolean isVogal = true;
 		
 
 	   for(int i = 0; i < str.length() && isVogal;i++){
-	   	if(str.charAt(i)!='a' && str.charAt(i)!='e' && str.charAt(i)!='i' && str.charAt(i)!='o' && str.charAt(i)!='u')
-           		isVogal = false;
+		   isVogal = IsVogal(str.charAt(i));
 	   }
 
        return isVogal;
    
    }
-
+  //ESSE METODO VERIFICA SE UM CHAR É UM VOGAL
+   private static boolean IsVogal(char c){
+	   boolean isVogal = true;
+		if(c!='a' && c!='e' && c!='i' && c!='o' && c!='u')
+           		isVogal = false;
+		return isVogal;
+   }
+   //ESSE METODO VERIFCA SE UMA STRING É COMPOSTA POR APENAS CONSOANTES
    private static boolean IsConsoante(String str){
    	   boolean isConsoante = true;
 		
 
 	   for(int i = 0; i < str.length() && isConsoante;i++){
-	   	if(str.charAt(i) == 'a' || str.charAt(i) =='e' || str.charAt(i) =='i' || str.charAt(i) =='o' || str.charAt(i) =='u' || str.charAt(i)<97 || str.charAt(i) > 122)
-           		isConsoante = false;
+		   if(!IsLetra(str.charAt(i)) || !IsVogal(str.charAt(i)))
+		   		isConsoante = false;
 	   }
 
        return isConsoante;
    }
+  //ESSE METODO VERIFICA SE UM CHAR É COMPOSTO POR APENAS LETRAS
+   private static boolean IsLetra(char c){
+	   boolean isLetra = true;
 
+	   if(c < 'a' || c > 'z')
+	   		isLetra = false;
+		return isLetra;
+   }
+  //ESSE METODO VERIFCA SE UM STRING É COMPOSTA APENAS POR NUMEROS INTEIROS
    private static boolean IsInteger(String str){
    	
 	boolean integer = true;
 
 	for(int i = 0; i < str.length() && integer ; i++){
-		if(str.charAt(i) != '0' && str.charAt(i) != '1' && str.charAt(i) != '2'  && str.charAt(i) !='3' && str.charAt(i) !='4' && str.charAt(i) !='5' && str.charAt(i) !='6' && str.charAt(i) !='7' && str.charAt(i) !='8' && str.charAt(i) !='9'){
-			integer = false;
-		}
+		integer = IsInteger(str.charAt(i));
 			
 	}
 	
 	return integer;	
    }
 
+   //ESSE MÉTODO VERIFICA SE UM CHAR É COMPOSTO POR UM NUMERO ATRAVES DO CODIGO ASCII
+   private static boolean IsInteger(char c){
+	   boolean integer = true;
+	   if(c<47 || c>58){
+			integer = false;
+		}
+		return integer;
+   }
+   //ESSE METODO VERIFIA A STRING É COMPOSTA APENAS POR UM NÚMERO REAL
    private static boolean IsReal(String str){
    	
-	   boolean conti = true;
-	   int count = 0;
+	   boolean numero = true;
+	   int real = 0;
 
-	   for(int i = 0; i < str.length() && conti && count < 2; i++){
+	   for(int i = 0; i < str.length() && numero && real < 2; i++){
 		 if(str.charAt(i)==',' || str.charAt(i)=='.'){
-				 count++;
+				 real++;
 			}
 		else{
-			 if(str.charAt(i) != '0' && str.charAt(i) != '1' && str.charAt(i) != '2'  && str.charAt(i) !='3' && str.charAt(i) !='4' && str.charAt(i) !='5' && str.charAt(i) !='6' && str.charAt(i) !='7' && str.charAt(i) !='8' && str.charAt(i) !='9'){
-				 conti = false;
-			 }
-				
+			 if(!IsInteger(str.charAt(i))){
+				 numero = false;
+			 }				
 		}
 	   }
 
-   	return conti && (count==1);
+   	return conti && (real==1);
    }
-
+  //ESSE METODO CONVERTE N CARACETERES IGUAIS A MAISCULO DA STRING PARA MINUSCULO ATRAVES DE CÓDIGO ASCII
    private static String ToLowerCase(String str){
   
 	   String lowerCase = "";

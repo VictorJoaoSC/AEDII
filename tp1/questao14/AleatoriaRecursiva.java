@@ -21,14 +21,15 @@ class AleatoriaRecursiva {
          MyIO.println(AleatoriaRecursiva(entrada[i]));
       }
    }
-
+  
    private static String AleatoriaRecursiva(String str){
         char escolhida = RandomChar();
         char substituir = RandomChar();
     
         return AleatoriaRecursiva(str,0,escolhida,substituir);
    }
-
+    //ESSE METODO RECEBE STRING, UM INTEIRO E DOIS CHAR 'char1' e 'char2' SE 'char1' ESTIVER 
+   //PRESENTE NA STRING É SUBISTITUIDO POR 'char2'
     private static String AleatoriaRecursiva(String str,int count,char escolhida, char substituir){
 
         String novaString = "";
@@ -43,7 +44,7 @@ class AleatoriaRecursiva {
         return novaString;
 
     }
-
+    //ESSE METODO RETORNA  UM CARACTERE ENTRE 'a e z' QUE É GERADO RANDOMICAMENTE 
     private static char RandomChar(){
 	   return ((char) ('a'+(Math.abs(aleatorio.nextInt())%26)));
    }
