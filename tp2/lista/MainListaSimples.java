@@ -111,8 +111,9 @@ class MainListaSimples{
         try{
             while(line.equals("0")==false){
 
-                String dir = "/home/joaoSC/Downloads/copa/"+line+".html";
+                //String dir = "/home/joaoSC/Downloads/copa/"+line+".html";
                 // String dir = "/tmp/copa/"+line+".html";
+                String dir = "/home/1049275/Downloads/copa/"+line+".html";
 
                 in = new BufferedReader(new FileReader(dir));
                 
@@ -171,9 +172,12 @@ class MainListaSimples{
                     
                     BufferedReader in;
                     String[] infos;
-                    String dir = "/home/joaoSC/Downloads/copa/"+infosLine[1]+".html";
+                    //String dir = "/home/joaoSC/Downloads/copa/"+infosLine[1]+".html";
 
                     // String dir = "/tmp/copa/"+infosLine[1]+".html";
+                    
+					String dir = "/home/1049275/Downloads/copa/"+infosLine[1]+".html";
+
 
                     Partida[] partidas;
 
@@ -203,15 +207,30 @@ class MainListaSimples{
     //ESSE METODO CRIA OBJETOS DO TIPO PARTIDA É INICIALIZA SEUS ATRIBUTOS APARTI DAS INFORMAÇÕES
     //CONTIDAS EM UM TABELA HTML
     private static Partida[] setInfosPartida(String[] vetor,Partida[] partidas){
+		
+		String time1 = null;
+		String time2 = null;
 		String grupo = null;
+		
+		int placar1 = 0;
+		int placar2 = 0;
+		
+		boolean controlRight = false;
+		
+		boolean posRight = false;
+		
 		int pos = -1;
+		
+		//String grupo = null;
+		//int pos = -1;
 
-		boolean control = false;
-		boolean controlCenter = false;
+		//boolean control = false;
+		//boolean controlCenter = false;
 
 		for(int i = 0; i < vetor.length && vetor[i]!=null;i++){
 			
-			if(vetor[i].contains("<td colspan=")){
+			/*if(vetor[i].contains("<td colspan=")){
+			 
 				grupo = getHtmlGrupo(vetor[i]);
 				// MyIO.println(grupo);
 			}
@@ -246,15 +265,59 @@ class MainListaSimples{
 				control = false;
 			}		
 		}
-		return partidas;
+		return partidas;*/
+			
+			if(vetor[i].contains("<td colspan="){
+				grupo = getHtmlGrupo(vetor[i]);
+			}
+			else if(vetor[i].contains("<tr>"){
+				pos++;
+				partidas[pos] = new Partida(grupo);
+			}
+			else if(vetor[i+1]!=null && vetor[i+1].contains("right")){
+				String data[] = getHtmlData(vetor[i]);
+
+				partidas[pos].setDia(Integer.parseInt(data[0]));
+				partidas[pos].setMes(Integer.parseInt(data[1]));
+			}
+            else if(vetor[i].contains("right")){
+			    partidas[pos].setTime1(filtro(vetor[i]));
+                posRight = true;
+			}
+			else if(posRight && vetor[i].contains("x")){
+				String placar[] = getHtmlPlacar(vetor[i]);
+			 	placar1 = (Integer.parseInt(placar[0]));
+			 	placar2 = (Integer.parseInt(placar[1]));
+
+				controlCenter = true;
+                posRight = false;
+			}
+			else if (controlCenter){
+				time2 = paisCorrespondentes( filtro(vetor[i]) );
+                inserirElementosLista(time1,time2,placar1,placar2);
+                controlCenter = false;	
+			}
 	}
 
-    //ESSE METODO RECEBE UMA STRING E RETORNA UM INFORMAÇÃO CONTIDA ENTRE A TAG HTML <td> </td>
+   //ESSE METODO RECEBE UMA STRING E RETORNA UM INFORMAÇÃO CONTIDA ENTRE A TAG HTML <td> </td> 
     private static String filtro(String str){
 		String array[] = str.split(">");
-		
-		
-		return array[1].replace("</td","");
+        
+        int pos = 1;
+
+        if(array.length == 4){
+
+            if(array[2].contains("&nbsp;")){
+                pos = 1;
+
+                array[pos] = array[pos].replace("<br","");
+            }
+            else{
+                pos = 2;
+            }
+        }
+ 
+		return array[pos].replace("</td","");
 	}
 
     //ESSE METODO RECEBE UM STRING E PECORRE OS CARACTERES DA STRING VERIFICANDO SE O CARACTERE ESTÁ ENTRE
@@ -303,19 +366,6 @@ class MainListaSimples{
 		return partidas;
 	}
 
-    private static String getHtmlCharset(String str){
-		
-		String[] vetor;
-
-		vetor = str.split(";");
-
-        vetor = vetor[1].split("=");
-
-        String charset = vetor[1].replace("\">","");
-		
-		return charset;
-	}
-
     //ESSE MÉTODO FAZ A LEITURA DE UM ARQUIVO HTML É GUARDA AS INFORMAÇÕES DESSE ARQUIVO EM UM VETOR
     // QUE É RETORNADO
     private static String[] LerArquivo(BufferedReader arq,String dir){
@@ -330,8 +380,6 @@ class MainListaSimples{
 		boolean toBegin = false;		
 		
 		int i = 0;
-        
-
 		
 		try{
 
